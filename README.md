@@ -3,4 +3,11 @@ A simple battle tank game made in Unreal 4
 
 ## Intro
 This is just a sample project made up by following the Unreal Course.
-* Current stage: Initial Committing and testing
+- Stages: 
+* ✓ Initial Committing and testing
+* ✓ Creation of level
+* Landscape:
+* - ✓ Creation of landscape
+* - ✓ Defining form (mountain and terrain) in landscape
+* - ✓ Applying texture to materials for landscape
+* Creation of tank
