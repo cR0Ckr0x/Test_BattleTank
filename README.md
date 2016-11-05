@@ -1,6 +1,8 @@
 # Test_BattleTank
 A simple battle tank game made in Unreal 4
 
+***
+
 ## Intro
 This is just a sample project made up by following the Unreal Course.
 
@@ -11,9 +13,15 @@ General:
 - ✓ Creation of level
 
 Landscape:
-* ✓ Creation of landscape
-* ✓ Defining form (mountain and terrain) in landscape
-* ✓ Applying texture to materials for landscape
+- ✓ Creation of landscape
+- ✓ Defining form (mountain and terrain) in landscape
+- ✓ Applying texture to materials for landscape
 
 The Tank:
-* Creation of tank
+- ...
+
+***
+
+## ToDo:
+
+- Creation of tank
