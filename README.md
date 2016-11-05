@@ -1,4 +1,4 @@
-# Test_BattleTank
+﻿# Test_BattleTank
 A simple battle tank game made in Unreal 4
 
 ## Intro
@@ -16,8 +16,8 @@ Landscape:
 - ✓ Applying texture to materials for landscape
 
 The Tank:
+- ✓ Creation of the tank: grouped static mesh for each part of the tank into 1 Tank_BP
 - ...
 
 ## ToDo:
 
-- Creation of tank
