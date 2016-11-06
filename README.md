@@ -17,6 +17,12 @@ Landscape:
 
 The Tank:
 - ✓ Creation of the tank: grouped static mesh for each part of the tank into 1 Tank_BP
+- ✓ GameMode in Blueprint instead of default
+- ✓ Enemy Tank (static for the moment)
+- ✓ Adding our PlayerStart and wire a Tank as DefaultPawn in BP
+- ✓ Adding SpringArm + (child) camera to Tank BP
+- ✓ Adding Inputs for mouse and controller for moving SpringArm (to be fixed)
+- ✓ Actually using inputs events in BP to move the in game camera
 - ...
 
 ## ToDo:
