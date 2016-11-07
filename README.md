@@ -23,6 +23,7 @@ The Tank:
 - ✓ Adding SpringArm + (child) camera to Tank BP
 - ✓ Adding Inputs for mouse and controller for moving SpringArm (to be fixed)
 - ✓ Actually using inputs events in BP to move the in game camera
+- ✓ Find the crossahir position in pixel coordinates 
 - ...
 
 ## ToDo:
