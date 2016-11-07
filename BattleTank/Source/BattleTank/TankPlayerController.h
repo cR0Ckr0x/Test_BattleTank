@@ -34,11 +34,16 @@ private:
 
 
 	UPROPERTY(EditAnywhere)
-	float CrossHairXLocation = .5;
+		float CrossHairXLocation = .5;
 	UPROPERTY(EditAnywhere)
-	float CrossHairYLocation = .33333;
+		float CrossHairYLocation = .33333;
+	UPROPERTY(EditAnywhere)
+		float LineTraceRange = 1000000; //
 
 	// Return an OUT parameter, true if hit landscape
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
+
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& OutHit) const;
 	
 };
