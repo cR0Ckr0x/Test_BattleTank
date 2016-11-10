@@ -2,6 +2,7 @@
 
 #include "BattleTank.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 
@@ -18,7 +19,15 @@ UTankAimingComponent::UTankAimingComponent()
 
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
+	UE_LOG(LogTemp, Warning, TEXT("Barrel set! %s"), *(BarrelToSet->GetName()));
+
 	Barrel = BarrelToSet;
+
+}
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) {
+	UE_LOG(LogTemp, Warning, TEXT("Turret set! %s"), *(TurretToSet->GetName()));
+
+	Turret = TurretToSet;
 
 }
 
@@ -69,4 +78,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 	//UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *AimAsRotator.ToString());
 
 	Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
+	
+	Turret->Rotate(AimAsRotator); // TODO remove magic number
 }
