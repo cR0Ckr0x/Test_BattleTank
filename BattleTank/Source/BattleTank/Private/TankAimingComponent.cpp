@@ -20,14 +20,14 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	if (!BarrelToSet) { return; }
-	UE_LOG(LogTemp, Warning, TEXT("Barrel set! %s"), *(BarrelToSet->GetName()));
+	//UE_LOG(LogTemp, Warning, TEXT("Barrel set! %s"), *(BarrelToSet->GetName()));
 
 	Barrel = BarrelToSet;
 
 }
 void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) {
 	if (!TurretToSet) { return; }
-	UE_LOG(LogTemp, Warning, TEXT("Turret set! %s"), *(TurretToSet->GetName()));
+	//UE_LOG(LogTemp, Warning, TEXT("Turret set! %s"), *(TurretToSet->GetName()));
 
 	Turret = TurretToSet;
 
@@ -57,18 +57,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
 	);
 	if (bHaveAimSolution) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		/*auto TankName = GetOwner()->GetName();
-		//UE_LOG(LogTemp, Warning, TEXT("Firing at %f"), LaunchSpeed);
-		UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *TankName, *AimDirection.ToString());
-		*/
 		MoveBarrelTowards(AimDirection);
-
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found"), Time);
-	}
-	else {
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solve found"), Time);
 	}
 }
 
