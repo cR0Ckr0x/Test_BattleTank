@@ -31,9 +31,6 @@ void AProjectile::Tick( float DeltaTime )
 
 void AProjectile::LaunchProjectile(float Speed) {
 
-	auto Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f: Projectile launches at %f"), Time, Speed);
-
 	ProjectileMovement->SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
 	ProjectileMovement->Activate(); // I set bAutoActivate on constructor so I need to activate the component when I want it to move
 }

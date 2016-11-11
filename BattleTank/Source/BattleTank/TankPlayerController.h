@@ -32,11 +32,11 @@ private:
 	void AimTowardsCrosshair();
 
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrossHairXLocation = .5;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrossHairYLocation = .33333;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000; //
 
 	// Return an OUT parameter, true if hit landscape
