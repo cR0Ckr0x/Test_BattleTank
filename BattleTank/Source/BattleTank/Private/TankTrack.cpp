@@ -4,12 +4,10 @@
 #include "TankTrack.h"
 
 void UTankTrack::SetThrottle(float Throttle) {
-	//auto Time = GetWorld()->GetTimeSeconds();
-	auto Name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s throttle: %f"), *Name, Throttle);
-
-	// TODO Clamp actual throttle value so player can't over-drive
-
+	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
+	auto ForceLocation = GetComponentLocation();
+	UPrimitiveComponent* TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent()); // GetOwner gives me the top component (Tank_BP) - GetRootComponent gives me Tank (The Tank component, a Static Mesh Component)
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 }
 
 
