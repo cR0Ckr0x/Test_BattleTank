@@ -5,6 +5,14 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+// Enum for aiming state
+UENUM()
+enum class EFiringStatus : uint8 {
+	Aiming,
+	Locked,
+	Reloading
+};
+
 // Forward Declaration - that allows us to reference the type UTankBarrel down in .h file without a chain of dependancy (to avoid #include manually)
 class UTankBarrel;
 class UTankTurret;
@@ -24,11 +32,15 @@ public:
 
 	void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
 
+protected:
+
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringStatus CurrentFiringStatus = EFiringStatus::Aiming;
+
 private:
 	//UStaticMeshComponent* Barrel = nullptr;
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
-	void MoveBarrelTowards(FVector AimDirection);
-	
+	void MoveBarrelTowards(FVector AimDirection);	
 };

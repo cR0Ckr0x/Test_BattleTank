@@ -17,8 +17,12 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+protected:
+
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank* GetControlledTank() const; // const = it's not gonna change any variable of this class
+
 private:
-	ATank* GetControlledTank() const; // const = it's not gonna change any variable of this class
 
 	virtual void BeginPlay() override; // please make sure there's this exact function up the inheritance tree (parent class)
 	// in this case I can ovveride BeginPlay() because it was declared virtual (virtual void BeginPlay();)
