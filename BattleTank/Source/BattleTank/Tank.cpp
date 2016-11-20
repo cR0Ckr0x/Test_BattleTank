@@ -14,6 +14,8 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+	UE_LOG(LogTemp, Warning, TEXT("Tank: %s Construct C++"), *(GetName()));
+
 	// No need to protect pointer as added at construction
 	// I am creating an inherited TankAimingComponent called "Aiming Component"
 	// From now on, if I go into Tank_BP, I will find in components "Aiming Component (Inherited)" (from c++)
@@ -24,8 +26,15 @@ ATank::ATank()
 
 }
 
+void ATank::BeginPlay() {
+	Super::BeginPlay(); // Needed for BP Begin Play to run
+
+	UE_LOG(LogTemp, Warning, TEXT("Tank: %s BeginPlay C++"), *(GetName()));
+}
+
 // Public Methods
 void ATank::AimAt(FVector HitLocation) {
+	if (!TankAimingComponent) { return; }
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 

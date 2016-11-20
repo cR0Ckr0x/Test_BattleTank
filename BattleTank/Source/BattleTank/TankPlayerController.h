@@ -10,7 +10,7 @@ class ATank;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankPlayerController);
 
 /**
- * 
+ * Responsible for helping the player aim.
  */
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
@@ -21,6 +21,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		ATank* GetControlledTank() const; // const = it's not gonna change any variable of this class
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
 private:
 
