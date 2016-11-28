@@ -4,7 +4,6 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "Tank.h"
 
 
@@ -13,8 +12,6 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
-	UE_LOG(LogTemp, Warning, TEXT("Tank: %s Construct C++"), *(GetName()));
 
 	// No need to protect pointer as added at construction
 	// I am creating an inherited TankAimingComponent called "Aiming Component"
@@ -28,8 +25,7 @@ ATank::ATank()
 
 void ATank::BeginPlay() {
 	Super::BeginPlay(); // Needed for BP Begin Play to run
-
-	UE_LOG(LogTemp, Warning, TEXT("Tank: %s BeginPlay C++"), *(GetName()));
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 // Public Methods
