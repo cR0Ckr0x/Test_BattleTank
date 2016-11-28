@@ -5,7 +5,7 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h" // Must be the last include
 
-class ATank;
+class UTankAimingComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankPlayerController);
 
@@ -18,10 +18,6 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 protected:
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-		ATank* GetControlledTank() const; // const = it's not gonna change any variable of this class
-
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
