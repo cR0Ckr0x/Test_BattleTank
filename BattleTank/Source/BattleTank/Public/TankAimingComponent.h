@@ -5,8 +5,9 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
-// Forward Declarations
+// Forward Declaration - that allows us to reference the type UTankBarrel down in .h file without a chain of dependancy (to avoid #include manually)
 class UTankBarrel;
+class UTankTurret;
 class AProjectile;
 
 // Enum for aiming state
@@ -17,9 +18,6 @@ enum class EFiringStatus : uint8 {
 	Reloading
 };
 
-// Forward Declaration - that allows us to reference the type UTankBarrel down in .h file without a chain of dependancy (to avoid #include manually)
-class UTankBarrel;
-class UTankTurret;
 
 // Hold barrel's properties and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -45,6 +43,17 @@ private:
 
 	// Sets default values for this component's properties
 	UTankAimingComponent();
+
+	// preso da UActorComponent -> Go to definition -> cercare nel suo file sorgente 'tick'
+	/**
+	* Function called every frame on this ActorComponent. Override this function to implement custom logic to be executed every frame.
+	* Only executes if the component is registered, and also PrimaryComponentTick.bCanEverTick must be set to true.
+	*
+	* @param DeltaTime - The time since the last tick.
+	* @param TickType - The kind of tick this is, for example, are we paused, or 'simulating' in the editor
+	* @param ThisTickFunction - Internal tick function struct that caused this to run
+	*/
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
 	void MoveBarrelTowards(FVector AimDirection);
 
