@@ -5,11 +5,6 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
-// Forward Declaration - that allows us to reference the type UTankBarrel down in .h file without a chain of dependancy (to avoid #include manually)
-class UTankBarrel;
-class UTankTurret;
-class AProjectile;
-
 // Enum for aiming state
 UENUM()
 enum class EFiringStatus : uint8 {
@@ -18,6 +13,10 @@ enum class EFiringStatus : uint8 {
 	Reloading
 };
 
+// Forward Declaration - that allows us to reference the type UTankBarrel down in .h file without a chain of dependancy (to avoid #include manually)
+class UTankBarrel;
+class UTankTurret;
+class AProjectile;
 
 // Hold barrel's properties and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -37,9 +36,10 @@ public:
 protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringStatus CurrentFiringStatus = EFiringStatus::Aiming;
+	EFiringStatus FiringStatus = EFiringStatus::Reloading;
 
 private:
+	virtual void BeginPlay() override;
 
 	// Sets default values for this component's properties
 	UTankAimingComponent();
@@ -56,6 +56,8 @@ private:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
 	void MoveBarrelTowards(FVector AimDirection);
+
+	bool IsBarrelMoving();
 
 	//UStaticMeshComponent* Barrel = nullptr;
 	UTankBarrel* Barrel = nullptr;
@@ -74,5 +76,8 @@ private:
 		float ReloadTimeInSeconds = 3;
 
 	double LastFireTime = 0;
+
+	FVector AimDirection;
+
 
 };

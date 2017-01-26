@@ -16,14 +16,34 @@ UTankAimingComponent::UTankAimingComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) {
-	UE_LOG(LogTemp, Warning, TEXT("Aimining Comp Ticking"));
+void UTankAimingComponent::BeginPlay() {
+	// So that first fire is after initial reload
+	LastFireTime = FPlatformTime::Seconds();
 }
-
 
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet) {
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
+}
+
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) {
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds) {
+		FiringStatus = EFiringStatus::Reloading;
+	}
+	else if (IsBarrelMoving()) {
+		FiringStatus = EFiringStatus::Aiming;
+	}
+	else {
+		FiringStatus = EFiringStatus::Locked;
+
+	}
+}
+
+bool UTankAimingComponent::IsBarrelMoving() {
+	if (!ensure(Barrel)) { return false; }
+	FVector BarrelForward = Barrel->GetForwardVector();
+
+	return !BarrelForward.Equals(AimDirection, 0.01);
 }
 
 // Public Methods
@@ -48,7 +68,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation) {
 		ESuggestProjVelocityTraceOption::DoNotTrace // this parameter must be present to prevent bug (Non aim solution found)
 	);
 	if (bHaveAimSolution) {
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
 }
@@ -67,10 +87,11 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 }
 
 void UTankAimingComponent::Fire() {
-	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	if (isReloaded) {
+	if (FiringStatus != EFiringStatus::Reloading) {
+		if (!ensure(Barrel)) { return; }
+		if (!ensure(ProjectileBlueprint)) { return; }
+
 		// Spawn a projectile at the socket location on the barrel
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
