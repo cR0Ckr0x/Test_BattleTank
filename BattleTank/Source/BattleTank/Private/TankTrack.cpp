@@ -7,6 +7,16 @@ UTankTrack::UTankTrack() {
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+void UTankTrack::BeginPlay() {
+	// Register delegate at begin play to forward to my custom function OnHit();
+	OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
+}
+
+void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) {
+	UE_LOG(LogTemp, Warning, TEXT("Hit happened :< %s"), *GetName());
+}
+
+
 void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) {
 	// Calculate the slippage speed (not velocity speed) (Dot product)
 	float SlippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
